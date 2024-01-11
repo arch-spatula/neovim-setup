@@ -137,6 +137,7 @@ require('lazy').setup({
 			'folke/neodev.nvim',
 		}
 	},
+
 	-- 자동완성
 	{
 		'hrsh7th/nvim-cmp',
@@ -229,39 +230,60 @@ require('lazy').setup({
 			end,
 		},
 	},
+
 	-- 저장에 자동 포맷팅
 	require 'plugins.autoformat',
 	-- add this to your lua/plugins.lua, lua/plugins/init.lua,  or the file you keep your other plugins:
 
-	-- 주석처리하는 방법
+	---- 주석처리하는 방법
+	--{
+	--'numToStr/Comment.nvim',
+	--opts = {
+	---- add any options here
+	--padding = true,
+	---- sticky = true,
+	--toggler = {
+	-----Line-comment toggle keymap
+	--line = "gcc",
+	-----Block-comment toggle keymap
+	--block = "gbc",
+	--},
+	--opleader = {
+	-----Line-comment keymap
+	--line = "<leader>_",
+	-----Block-comment keymap
+	--block = "<leader>_",
+	--},
+	--mappings = {
+	-----Operator-pending mapping; `gcc` `gbc` `gc[count]{motion}` `gb[count]{motion}`
+	--basic = true,
+	-----Extra mapping; `gco`, `gcO`, `gcA`
+	--extra = true,
+	--},
+	--},
+	--lazy = false,
+	--},
+
+	{ 'akinsho/bufferline.nvim', version = "*",       dependencies = 'nvim-tree/nvim-web-devicons' },
+
+	-- 가능한 키바인딩 보여주기
 	{
-		'numToStr/Comment.nvim',
+		"folke/which-key.nvim",
+		event = "VeryLazy",
+		init = function()
+			vim.o.timeout = true
+			vim.o.timeoutlen = 300
+		end,
 		opts = {
-			-- add any options here
-			padding = true,
-			-- sticky = true,
-			toggler = {
-				---Line-comment toggle keymap
-				line = "gcc",
-				---Block-comment toggle keymap
-				block = "gbc",
-			},
-			opleader = {
-				---Line-comment keymap
-				-- line = "<leader>/",
-				---Block-comment keymap
-				-- block = "<leader>/",
-			},
-			mappings = {
-				---Operator-pending mapping; `gcc` `gbc` `gc[count]{motion}` `gb[count]{motion}`
-				basic = true,
-				---Extra mapping; `gco`, `gcO`, `gcA`
-				extra = true,
-			},
-		},
-		lazy = false,
+			-- your configuration comes here
+			-- or leave it empty to use the default settings
+			-- refer to the configuration section below
+		}
 	},
-	{ 'akinsho/bufferline.nvim', version = "*",       dependencies = 'nvim-tree/nvim-web-devicons' }
+
+	{
+		"preservim/nerdcommenter",
+	}
 })
 
 -- 검색기 활성화
@@ -357,16 +379,77 @@ require('lspconfig')['marksman'].setup {
 	capabilities = capabilities
 }
 
--- leader + / 에 주석 처리 -> 아직 완성 못함 gcc, gbc로 동작함
--- vim.keymap.set('n', '<leader>/', "gcc") -- 동작안함
--- vim.keymap.set('v', '<leader>/', "gbc") -- 동작안함
--- vim.keymap.set('n', '<leader>d', "dd") -- 정상동작
+-- leader + / 에 주석 처리 -> 아직 완성 못함 지금은 leader + c 로 주석처리함
+local modes = { 'n', 'v' }
+for i in pairs(modes) do
+	vim.keymap.set(modes[i], '<leader>c', ':call nerdcommenter#Comment(0, "toggle")<CR>',
+		{ noremap = true, silent = true })
+end
 
 -- buffer 표시
+local bufferline = require('bufferline')
+vim.opt.termguicolors = true
+require("bufferline").setup {
+	options = {
+		mode = "buffers",
+		style_preset = bufferline.style_preset.minimal,
+		themable = true,
+		numbers = "ordinal",
+		close_command = "bdelete! %d", -- can be a string | function, | false see "Mouse actions"
+		right_mouse_command = "bdelete! %d", -- can be a string | function | false, see "Mouse actions"
+		left_mouse_command = "buffer %d", -- can be a string | function, | false see "Mouse actions"
+		middle_mouse_command = nil, -- can be a string | function, | false see "Mouse actions"
+		indicator = {
+			icon = '▎', -- this should be omitted if indicator style is not 'icon'
+			style = 'underline', -- 'icon' | 'underline' | 'none',
+		},
+		buffer_close_icon = '󰅖',
+		modified_icon = '●',
+		close_icon = '',
+		left_trunc_marker = '',
+		right_trunc_marker = '',
+		diagnostics = "nvim_lsp",
+		offsets = {
+			{
+				filetype = "NvimTree",
+				text = "File Explorer", -- "File Explorer" | function ,
+				text_align = "center", -- "left" | "center" | "right"
+				separator = true
+			}
+		},
+		padded_slant = true,
+		color_icons = true, -- whether or not to add the filetype icon highlights
+		get_element_icon = function(element)
+			-- element consists of {filetype: string, path: string, extension: string, directory: string}
+			-- This can be used to change how bufferline fetches the icon
+			-- for an element e.g. a buffer or a tab.
+			-- e.g.
+			local icon, hl = require('nvim-web-devicons').get_icon_by_filetype(element.filetype, { default = false })
+			return icon, hl
+			-- or
+			--local custom_map = {my_thing_ft: {icon = "my_thing_icon", hl}}
+			--return custom_map[element.filetype]
+		end,
+		diagnostics_indicator = function(count, level, diagnostics_dict, context)
+			local icon = level:match("error") and " " or ""
+			return " " .. icon .. count
+		end,
+		separator_style = "thin", -- "slant" | "slope" | "thick" | "thin" | { 'any', 'any' },
+		hover = {
+			enabled = true,
+			delay = 200,
+			reveal = { 'close' }
+		},
+		show_buffer_icons = true,     -- true | false, -- disable filetype icons for buffers
+		show_buffer_close_icons = true, -- true | false,
+		show_close_icon = true,       --true | false,
+		show_tab_indicators = true,   --true | false,
+	},
+}
+
+-- 버퍼 탭 사이 전환
 -- 디버거 추가
 -- 마크다운 코드블럭 syntax 하이라이트
 -- 탤레스코프 더 구체적이게 nvchad 기준으로 설정하기
 -- 화면 분할(커맨드라인 & 다른 버퍼)
--- 버퍼 탭
--- leader 이후 접근 할 수 있는 커맨드 표시(다른 distro 참고)
--- 레포에 설정 저장(git commit)
+-- README.md 에 설치한 언어 알려주기
