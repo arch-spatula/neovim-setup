@@ -24,7 +24,7 @@ rd -r ~\AppData\Local\nvim-data
 git clone https://github.com/arch-spatula/neovim-setup.git ~/.config/nvim --depth 1 && nvim
 ```
 
-제가 설정한 neovim을 위 명령으로 ~~ 멀웨어와 함께 ~~ 설치할 수 있습니다.
+제가 설정한 neovim을 위 명령으로 ~~멀웨어와 함께~~ 설치할 수 있습니다.
 
 <!-- @todo: 설치한 LSP 목록 나열하기 -->
 
