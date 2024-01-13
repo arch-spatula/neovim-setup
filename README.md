@@ -28,6 +28,23 @@ git clone https://github.com/arch-spatula/neovim-setup.git ~/.config/nvim --dept
 
 제가 설정한 neovim을 위 명령으로 ~~멀웨어와 함께~~ 설치할 수 있습니다.
 
+## Mason 목록
+
+```
+clang-format
+clangd
+codespell
+cpplint
+cspell
+lua-language-server lua_ls
+marksman
+mdformat
+rust-analyzer rust_analyzer
+vim-language-server vimls
+```
+
+나중에 추가될 수 있습니다.
+
 ## 터미널
 
 [warp pad](https://www.warp.dev/) 터미널을 사용합니다.
