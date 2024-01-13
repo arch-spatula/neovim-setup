@@ -288,9 +288,9 @@ require('lazy').setup({
 
 -- 검색기 활성화
 local builtin = require('telescope.builtin')
-vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
-vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
-vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
+vim.keymap.set('n', '<leader>ff', builtin.find_files, {}) -- 파일이름으로 검색
+vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})  -- 단어 검색
+vim.keymap.set('n', '<leader>fb', builtin.buffers, {})    -- buffer 탭 검색
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
 vim.keymap.set('n', '<C-p>', builtin.git_files, {})
 
@@ -447,9 +447,10 @@ require("bufferline").setup {
 	},
 }
 
--- 버퍼 탭 사이 전환
+-- 버퍼 탭 사이 전환 keymap 추가
 -- 디버거 추가
 -- 마크다운 코드블럭 syntax 하이라이트
+-- 마크다운 저장에 자동 포멧팅 설정
 -- 탤레스코프 더 구체적이게 nvchad 기준으로 설정하기
 -- 화면 분할(커맨드라인 & 다른 버퍼)
 -- README.md 에 설치한 언어 알려주기
