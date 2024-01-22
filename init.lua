@@ -83,7 +83,7 @@ require('lazy').setup({
 	},
 
 	-- 태마 설정
-	{ "catppuccin/nvim",         name = "catppuccin", priority = 1000 },
+	require 'plugins.theme',
 
 	-- 하단 상태바
 	{
@@ -155,81 +155,7 @@ require('lazy').setup({
 		},
 	},
 
-	{
-		-- git 설정
-		-- Adds git related signs to the gutter, as well as utilities for managing changes
-		'lewis6991/gitsigns.nvim',
-		opts = {
-			-- See `:help gitsigns.txt`
-			signs = {
-				add = { text = '+' },
-				change = { text = '~' },
-				delete = { text = '_' },
-				topdelete = { text = '‾' },
-				changedelete = { text = '~' },
-			},
-			on_attach = function(bufnr)
-				local gs = package.loaded.gitsigns
-
-				local function map(mode, l, r, opts)
-					opts = opts or {}
-					opts.buffer = bufnr
-					vim.keymap.set(mode, l, r, opts)
-				end
-
-				-- Navigation
-				map({ 'n', 'v' }, ']c', function()
-					if vim.wo.diff then
-						return ']c'
-					end
-					vim.schedule(function()
-						gs.next_hunk()
-					end)
-					return '<Ignore>'
-				end, { expr = true, desc = 'Jump to next hunk' })
-
-				map({ 'n', 'v' }, '[c', function()
-					if vim.wo.diff then
-						return '[c'
-					end
-					vim.schedule(function()
-						gs.prev_hunk()
-					end)
-					return '<Ignore>'
-				end, { expr = true, desc = 'Jump to previous hunk' })
-
-				-- Actions
-				-- visual mode
-				map('v', '<leader>hs', function()
-					gs.stage_hunk { vim.fn.line '.', vim.fn.line 'v' }
-				end, { desc = 'stage git hunk' })
-				map('v', '<leader>hr', function()
-					gs.reset_hunk { vim.fn.line '.', vim.fn.line 'v' }
-				end, { desc = 'reset git hunk' })
-				-- normal mode
-				map('n', '<leader>hs', gs.stage_hunk, { desc = 'git stage hunk' })
-				map('n', '<leader>hr', gs.reset_hunk, { desc = 'git reset hunk' })
-				map('n', '<leader>hS', gs.stage_buffer, { desc = 'git Stage buffer' })
-				map('n', '<leader>hu', gs.undo_stage_hunk, { desc = 'undo stage hunk' })
-				map('n', '<leader>hR', gs.reset_buffer, { desc = 'git Reset buffer' })
-				map('n', '<leader>hp', gs.preview_hunk, { desc = 'preview git hunk' })
-				map('n', '<leader>hb', function()
-					gs.blame_line { full = false }
-				end, { desc = 'git blame line' })
-				map('n', '<leader>hd', gs.diffthis, { desc = 'git diff against index' })
-				map('n', '<leader>hD', function()
-					gs.diffthis '~'
-				end, { desc = 'git diff against last commit' })
-
-				-- Toggles
-				map('n', '<leader>tb', gs.toggle_current_line_blame, { desc = 'toggle git blame line' })
-				map('n', '<leader>td', gs.toggle_deleted, { desc = 'toggle git show deleted' })
-
-				-- Text object
-				map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>', { desc = 'select git hunk' })
-			end,
-		},
-	},
+	require 'plugins.gitPlugin',
 
 	-- 저장에 자동 포맷팅
 	require 'plugins.autoformat',
@@ -264,7 +190,7 @@ require('lazy').setup({
 	--lazy = false,
 	--},
 
-	{ 'akinsho/bufferline.nvim', version = "*",       dependencies = 'nvim-tree/nvim-web-devicons' },
+	{ 'akinsho/bufferline.nvim', version = "*", dependencies = 'nvim-tree/nvim-web-devicons' },
 
 	-- 가능한 키바인딩 보여주기
 	{
@@ -283,7 +209,7 @@ require('lazy').setup({
 
 	{
 		"preservim/nerdcommenter",
-	}
+	},
 })
 
 -- 검색기 활성화
@@ -311,7 +237,7 @@ vim.keymap.set('n', '<leader>e', vim.cmd.NvimTreeFocus, {})
 vim.defer_fn(function()
 	require('nvim-treesitter.configs').setup {
 		-- Add languages to be installed here that you want installed for treesitter
-		ensure_installed = { 'c', 'cpp', 'lua', 'rust', 'zig', 'vimdoc', 'vim', 'bash' },
+		ensure_installed = { 'c', 'cpp', 'lua', 'rust', 'zig', 'vimdoc', 'vim', 'bash', 'markdown', 'markdown_inline' },
 		highlight = { enable = true },
 		indent = { enable = true }
 	}
@@ -321,9 +247,11 @@ end, 0
 -- 자동완성 설정
 require('mason').setup()
 require("mason-lspconfig").setup {
-	ensure_installed = { "lua_ls", "rust_analyzer", "clangd" },
+	ensure_installed = { "lua_ls", "rust_analyzer", "clangd", "marksman" }, -- "mdformat"
 }
 require("lspconfig").lua_ls.setup {}
+require("lspconfig").marksman.setup {}
+require("lspconfig").rust_analyzer.setup {}
 require("lspconfig").clangd.setup {
 	on_attach = function(client, bufnr)
 		client.server_capabilities.signatureHelpProvider = false
@@ -378,6 +306,25 @@ require('lspconfig')['clangd'].setup {
 require('lspconfig')['marksman'].setup {
 	capabilities = capabilities
 }
+--require('lspconfig')['sumneko_markdown'].setup {
+--capabilities = capabilities
+--}
+
+cmp.config.sources({
+	{ name = 'nvim_lsp' },
+	{ name = 'vsnip' },
+	{ name = 'luasnip' },
+	{ name = 'buffer' },
+})
+
+--require('lspconfig')['mdformat'].setup {
+--capabilities = capabilities
+--}
+
+-- 자동완성
+--[[vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)]]
+--[[vim.lsp.buf.format()]]
+--[[end, { desc = 'Format current buffer with LSP' })]]
 
 -- leader + / 에 주석 처리 -> 아직 완성 못함 지금은 leader + c 로 주석처리함
 local modes = { 'n', 'v' }
@@ -448,6 +395,7 @@ require("bufferline").setup {
 }
 
 -- 버퍼 탭 사이 전환 keymap 추가
+-- thePrimagen keymap
 -- 디버거 추가
 -- 마크다운 코드블럭 syntax 하이라이트
 -- 마크다운 저장에 자동 포멧팅 설정
