@@ -394,6 +394,12 @@ require("bufferline").setup {
 	},
 }
 
+vim.keymap.set("n", "<leader>bs", vim.cmd.BufferLineCloseOthers)
+--vim.keymap.set("n", "<leader>bcr", vim.cmd.BufferLineCloseRight)
+--vim.keymap.set("n", "<leader>bcl", vim.cmd.BufferLineCloseLeft)
+vim.keymap.set("n", "<leader>bct", vim.cmd.BufferLinePickClose)
+vim.keymap.set("n", "<leader>bt", vim.cmd.BufferLinePick)
+
 -- 버퍼 탭 사이 전환 keymap 추가
 -- thePrimagen keymap
 -- 디버거 추가
