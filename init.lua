@@ -210,6 +210,10 @@ require('lazy').setup({
 	{
 		"preservim/nerdcommenter",
 	},
+	{
+		"nvimtools/none-ls.nvim",
+		event = "VeryLazy"
+	}
 })
 
 -- 검색기 활성화
@@ -219,9 +223,6 @@ vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})  -- 단어 검색
 vim.keymap.set('n', '<leader>fb', builtin.buffers, {})    -- buffer 탭 검색
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
 vim.keymap.set('n', '<C-p>', builtin.git_files, {})
-
--- catppuccin 컬러 태마 설정
-vim.cmd.colorscheme "catppuccin-mocha"
 
 -- 클립보드 공유
 vim.o.clipboard = 'unnamedplus'
@@ -237,7 +238,7 @@ vim.keymap.set('n', '<leader>e', vim.cmd.NvimTreeFocus, {})
 vim.defer_fn(function()
 	require('nvim-treesitter.configs').setup {
 		-- Add languages to be installed here that you want installed for treesitter
-		ensure_installed = { 'c', 'cpp', 'lua', 'rust', 'zig', 'vimdoc', 'vim', 'bash', 'markdown', 'markdown_inline' },
+		ensure_installed = { 'c', 'cpp', 'lua', 'rust', 'zig', 'vimdoc', 'vim', 'bash', 'markdown', 'markdown_inline', "javascript", "typescript" },
 		highlight = { enable = true },
 		indent = { enable = true }
 	}
@@ -251,6 +252,7 @@ require("mason-lspconfig").setup {
 }
 require("lspconfig").lua_ls.setup {}
 require("lspconfig").marksman.setup {}
+--require("lspconfig").prettierd.setup {}
 require("lspconfig").rust_analyzer.setup {}
 require("lspconfig").clangd.setup {
 	on_attach = function(client, bufnr)
@@ -306,6 +308,7 @@ require('lspconfig')['clangd'].setup {
 require('lspconfig')['marksman'].setup {
 	capabilities = capabilities
 }
+
 --require('lspconfig')['sumneko_markdown'].setup {
 --capabilities = capabilities
 --}
@@ -399,6 +402,21 @@ vim.keymap.set("n", "<leader>bs", vim.cmd.BufferLineCloseOthers)
 --vim.keymap.set("n", "<leader>bcl", vim.cmd.BufferLineCloseLeft)
 vim.keymap.set("n", "<leader>bct", vim.cmd.BufferLinePickClose)
 vim.keymap.set("n", "<leader>bt", vim.cmd.BufferLinePick)
+
+local null_ls = require("null-ls")
+
+null_ls.setup({
+	sources = {
+		--null_ls.builtins.formatting.stylua.with({
+		--filetypes = { "lua" }
+		--}), -- 충돌 때문에 분리
+		null_ls.builtins.diagnostics.eslint,
+		null_ls.builtins.completion.spell,
+		null_ls.builtins.formatting.prettierd.with({
+			filetypes = { "css", "html", "javascript", "typescript", "json", "yaml", "markdown" },
+		}),
+	},
+})
 
 -- 버퍼 탭 사이 전환 keymap 추가
 -- thePrimagen keymap
