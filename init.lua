@@ -92,18 +92,7 @@ require('lazy').setup({
 	},
 
 	-- 사이드바
-	{
-		"nvim-tree/nvim-tree.lua",
-		cmd = { "NvimTreeToggle", "NvimTreeFocus" },
-		version = "*",
-		lazy = false,
-		dependencies = {
-			"nvim-tree/nvim-web-devicons",
-		},
-		config = function()
-			require("nvim-tree").setup {}
-		end,
-	},
+	require 'plugins.sidebar',
 
 	{
 		-- Highlight, edit, and navigate code
