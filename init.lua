@@ -248,7 +248,7 @@ end, 0
 -- 자동완성 설정
 require('mason').setup()
 require("mason-lspconfig").setup {
-	ensure_installed = { "lua_ls", "rust_analyzer", "clangd", "marksman" }, -- "mdformat"
+	ensure_installed = { "lua_ls", "rust_analyzer", "clangd", "marksman", }, -- "mdformat"
 }
 require("lspconfig").lua_ls.setup {}
 require("lspconfig").marksman.setup {}
@@ -397,11 +397,11 @@ require("bufferline").setup {
 	},
 }
 
-vim.keymap.set("n", "<leader>bs", vim.cmd.BufferLineCloseOthers)
+vim.keymap.set("n", "bs", vim.cmd.BufferLineCloseOthers)
 --vim.keymap.set("n", "<leader>bcr", vim.cmd.BufferLineCloseRight)
 --vim.keymap.set("n", "<leader>bcl", vim.cmd.BufferLineCloseLeft)
-vim.keymap.set("n", "<leader>bct", vim.cmd.BufferLinePickClose)
-vim.keymap.set("n", "<leader>bt", vim.cmd.BufferLinePick)
+vim.keymap.set("n", "bct", vim.cmd.BufferLinePickClose)
+vim.keymap.set("n", "bt", vim.cmd.BufferLinePick) -- buffer target
 
 local null_ls = require("null-ls")
 
@@ -410,7 +410,7 @@ null_ls.setup({
 		--null_ls.builtins.formatting.stylua.with({
 		--filetypes = { "lua" }
 		--}), -- 충돌 때문에 분리
-		null_ls.builtins.diagnostics.eslint,
+		null_ls.builtins.diagnostics.eslint_d,
 		null_ls.builtins.completion.spell,
 		null_ls.builtins.formatting.prettierd.with({
 			filetypes = { "css", "html", "javascript", "typescript", "json", "yaml", "markdown" },
