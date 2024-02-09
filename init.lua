@@ -40,6 +40,9 @@ vim.opt["shiftwidth"] = 2
 -- 2칸
 vim.opt["numberwidth"] = 2
 
+-- 클립보드 공유
+vim.o.clipboard = 'unnamedplus'
+
 -- Set <space> as the leader key
 -- See `:help mapleader`
 --  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
@@ -189,12 +192,6 @@ require('lazy').setup({
 		event = "VeryLazy"
 	}
 })
-
--- 클립보드 공유
-vim.o.clipboard = 'unnamedplus'
-
--- lualine.nvim 설정
-require('lualine').setup()
 
 -- syntax 하이라이팅
 vim.defer_fn(function()
