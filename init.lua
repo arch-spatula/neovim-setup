@@ -82,14 +82,14 @@ require('lazy').setup({
 	-- 사이드바
 	require 'plugins.sidebar',
 
-	{
-		-- Highlight, edit, and navigate code
-		'nvim-treesitter/nvim-treesitter',
-		dependencies = {
-			'nvim-treesitter/nvim-treesitter-textobjects',
-		},
-		build = ':TSUpdate',
-	},
+	--{
+		---- Highlight, edit, and navigate code
+		--'nvim-treesitter/nvim-treesitter',
+		--dependencies = {
+			--'nvim-treesitter/nvim-treesitter-textobjects',
+		--},
+		--build = ':TSUpdate',
+	--},
 
 	-- 들여쓰기 설정
 	{
@@ -99,43 +99,43 @@ require('lazy').setup({
 	},
 
 	-- lsp 설정
-	{
-		'neovim/nvim-lspconfig',
-		dependencies = {
-			-- Automatically install LSPs to stdpath for neovim
-			{ 'williamboman/mason.nvim', config = true },
-			'williamboman/mason-lspconfig.nvim',
+	--{
+		--'neovim/nvim-lspconfig',
+		--dependencies = {
+			---- Automatically install LSPs to stdpath for neovim
+			--{ 'williamboman/mason.nvim', config = true },
+			--'williamboman/mason-lspconfig.nvim',
 
-			-- Useful status updates for LSP
-			-- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-			{ 'j-hui/fidget.nvim',       opts = {} },
+			---- Useful status updates for LSP
+			---- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
+			--{ 'j-hui/fidget.nvim',       opts = {} },
 
-			-- Additional lua configuration, makes nvim stuff amazing!
-			'folke/neodev.nvim',
-		}
-	},
+			---- Additional lua configuration, makes nvim stuff amazing!
+			--'folke/neodev.nvim',
+		--}
+	--},
 
 	-- 자동완성
-	{
-		'hrsh7th/nvim-cmp',
-		dependencies = {
-			-- Snippet Engine & its associated nvim-cmp source
-			'L3MON4D3/LuaSnip',
-			'saadparwaiz1/cmp_luasnip',
+	--{
+		--'hrsh7th/nvim-cmp',
+		--dependencies = {
+			---- Snippet Engine & its associated nvim-cmp source
+			--'L3MON4D3/LuaSnip',
+			--'saadparwaiz1/cmp_luasnip',
 
-			-- Adds LSP completion capabilities
-			'hrsh7th/cmp-nvim-lsp',
-			'hrsh7th/cmp-path',
+			---- Adds LSP completion capabilities
+			--'hrsh7th/cmp-nvim-lsp',
+			--'hrsh7th/cmp-path',
 
-			-- Adds a number of user-friendly snippets
-			'rafamadriz/friendly-snippets',
-		},
-	},
+			---- Adds a number of user-friendly snippets
+			--'rafamadriz/friendly-snippets',
+		--},
+	--},
 
 	require 'plugins.gitPlugin',
 
 	-- 저장에 자동 포맷팅
-	require 'plugins.autoformat',
+	-- require 'plugins.autoformat',
 	-- add this to your lua/plugins.lua, lua/plugins/init.lua,  or the file you keep your other plugins:
 
 	---- 주석처리하는 방법
@@ -187,97 +187,98 @@ require('lazy').setup({
 	{
 		"preservim/nerdcommenter",
 	},
-	{
-		"nvimtools/none-ls.nvim",
-		event = "VeryLazy"
-	}
+
+	--{
+		--"nvimtools/none-ls.nvim",
+		--event = "VeryLazy"
+	--}
 })
 
 -- syntax 하이라이팅
-vim.defer_fn(function()
-	require('nvim-treesitter.configs').setup {
-		-- Add languages to be installed here that you want installed for treesitter
-		ensure_installed = { 'c', 'cpp', 'lua', 'rust', 'zig', 'vimdoc', 'vim', 'bash', 'markdown', 'markdown_inline', "javascript", "typescript" },
-		highlight = { enable = true },
-		indent = { enable = true }
-	}
-end, 0
-)
+--vim.defer_fn(function()
+	--require('nvim-treesitter.configs').setup {
+		---- Add languages to be installed here that you want installed for treesitter
+		--ensure_installed = { 'c', 'cpp', 'lua', 'rust', 'zig', 'vimdoc', 'vim', 'bash', 'markdown', 'markdown_inline', "javascript", "typescript" },
+		--highlight = { enable = true },
+		--indent = { enable = true }
+	--}
+--end, 0
+--)
 
 -- 자동완성 설정
-require('mason').setup()
-require("mason-lspconfig").setup {
-	ensure_installed = { "lua_ls", "rust_analyzer", "clangd", "marksman", }, -- "mdformat"
-}
-require("lspconfig").lua_ls.setup {}
-require("lspconfig").marksman.setup {}
---require("lspconfig").prettierd.setup {}
-require("lspconfig").rust_analyzer.setup {}
-require("lspconfig").clangd.setup {
-	on_attach = function(client, bufnr)
-		client.server_capabilities.signatureHelpProvider = false
-		on_attach(client, bufnr)
-	end,
-}
+--require('mason').setup()
+--require("mason-lspconfig").setup {
+	--ensure_installed = { "lua_ls", "rust_analyzer", "clangd", "marksman", }, -- "mdformat"
+--}
+--require("lspconfig").lua_ls.setup {}
+--require("lspconfig").marksman.setup {}
+----require("lspconfig").prettierd.setup {}
+--require("lspconfig").rust_analyzer.setup {}
+--require("lspconfig").clangd.setup {
+	--on_attach = function(client, bufnr)
+		--client.server_capabilities.signatureHelpProvider = false
+		--on_attach(client, bufnr)
+	--end,
+--}
 
 -- C언어 자동완성???
-local cmp = require 'cmp'
+--local cmp = require 'cmp'
 
-cmp.setup({
-	snippet = {
-		-- REQUIRED - you must specify a snippet engine
-		expand = function(args)
-			-- vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
-			require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
-			-- require('snippy').expand_snippet(args.body) -- For `snippy` users.
-			-- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
-		end,
-	},
-	window = {
-		-- completion = cmp.config.window.bordered(),
-		-- documentation = cmp.config.window.bordered(),
-	},
-	mapping = cmp.mapping.preset.insert({
-		['<C-b>'] = cmp.mapping.scroll_docs(-4),
-		['<C-f>'] = cmp.mapping.scroll_docs(4),
-		['<C-Space>'] = cmp.mapping.complete(),
-		['<C-e>'] = cmp.mapping.abort(),
-		['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-	}),
-	sources = cmp.config.sources({
-		{ name = 'nvim_lsp' },
-		{ name = 'vsnip' }, -- For vsnip users.
-		{ name = 'luasnip' }, -- For luasnip users.
-		-- { name = 'ultisnips' }, -- For ultisnips users.
-		-- { name = 'snippy' }, -- For snippy users.
-	}, {
-		{ name = 'buffer' },
-	})
-})
+--cmp.setup({
+	--snippet = {
+		---- REQUIRED - you must specify a snippet engine
+		--expand = function(args)
+			---- vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+			--require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+			---- require('snippy').expand_snippet(args.body) -- For `snippy` users.
+			---- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
+		--end,
+	--},
+	--window = {
+		---- completion = cmp.config.window.bordered(),
+		---- documentation = cmp.config.window.bordered(),
+	--},
+	--mapping = cmp.mapping.preset.insert({
+		--['<C-b>'] = cmp.mapping.scroll_docs(-4),
+		--['<C-f>'] = cmp.mapping.scroll_docs(4),
+		--['<C-Space>'] = cmp.mapping.complete(),
+		--['<C-e>'] = cmp.mapping.abort(),
+		--['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+	--}),
+	--sources = cmp.config.sources({
+		--{ name = 'nvim_lsp' },
+		--{ name = 'vsnip' }, -- For vsnip users.
+		--{ name = 'luasnip' }, -- For luasnip users.
+		---- { name = 'ultisnips' }, -- For ultisnips users.
+		---- { name = 'snippy' }, -- For snippy users.
+	--}, {
+		--{ name = 'buffer' },
+	--})
+--})
 
 -- Set up lspconfig.
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
+--local capabilities = require('cmp_nvim_lsp').default_capabilities()
 -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
-require('lspconfig')['lua_ls'].setup {
-	capabilities = capabilities
-}
-require('lspconfig')['clangd'].setup {
-	capabilities = capabilities
-}
-require('lspconfig')['marksman'].setup {
-	capabilities = capabilities
-}
+--require('lspconfig')['lua_ls'].setup {
+	--capabilities = capabilities
+--}
+--require('lspconfig')['clangd'].setup {
+	--capabilities = capabilities
+--}
+--require('lspconfig')['marksman'].setup {
+	--capabilities = capabilities
+--}
 
 --require('lspconfig')['sumneko_markdown'].setup {
 --capabilities = capabilities
 --}
 
-cmp.config.sources({
-	{ name = 'nvim_lsp' },
-	{ name = 'vsnip' },
-	{ name = 'luasnip' },
-	{ name = 'buffer' },
-})
+--cmp.config.sources({
+	--{ name = 'nvim_lsp' },
+	--{ name = 'vsnip' },
+	--{ name = 'luasnip' },
+	--{ name = 'buffer' },
+--})
 
 --require('lspconfig')['mdformat'].setup {
 --capabilities = capabilities
@@ -295,20 +296,20 @@ for i in pairs(modes) do
 		{ noremap = true, silent = true })
 end
 
-local null_ls = require("null-ls")
+--local null_ls = require("null-ls")
 
-null_ls.setup({
-	sources = {
-		--null_ls.builtins.formatting.stylua.with({
-		--filetypes = { "lua" }
-		--}), -- 충돌 때문에 분리
-		null_ls.builtins.diagnostics.eslint_d,
-		null_ls.builtins.completion.spell,
-		null_ls.builtins.formatting.prettierd.with({
-			filetypes = { "css", "html", "javascript", "typescript", "json", "yaml", "markdown" },
-		}),
-	},
-})
+--null_ls.setup({
+	--sources = {
+		----null_ls.builtins.formatting.stylua.with({
+		----filetypes = { "lua" }
+		----}), -- 충돌 때문에 분리
+		--null_ls.builtins.diagnostics.eslint_d,
+		--null_ls.builtins.completion.spell,
+		--null_ls.builtins.formatting.prettierd.with({
+			--filetypes = { "css", "html", "javascript", "typescript", "json", "yaml", "markdown" },
+		--}),
+	--},
+--})
 
 -- 버퍼 탭 사이 전환 keymap 추가
 -- thePrimagen keymap
