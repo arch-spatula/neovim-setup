@@ -250,7 +250,8 @@ require('mason-lspconfig').setup({
 			require('lspconfig').lua_ls.setup(lua_opts)
 		end,
 		lsp_zero.buffer_autoformat()
-	}
+	},
+	ensure_installed = { 'clangd', 'tsserver', 'rust_analyzer', 'marksman', 'volar' , 'eslint'},
 })
 
 --lsp_zero.setup_servers({'tsserver', 'rust_analyzer'})
@@ -297,8 +298,12 @@ lsp_zero.format_on_save({
 		timeout_ms = 10000,
 	},
 	servers = {
-		['tsserver'] = { 'javascript', 'typescript' },
+		['tsserver'] = { 'javascript', 'typescript', 'js', 'ts' },
 		['rust_analyzer'] = { 'rust' },
+		['clangd'] = { 'c', 'cpp' },
+		--['marksman'] = { 'md' },
+		['eslint'] = { 'md' },
+		['volar'] = { 'vue' },
 	}
 })
 
