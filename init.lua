@@ -67,84 +67,86 @@ vim.opt.rtp:prepend(lazypath)
 -- 스페이스바 + e + x 으로 vim 탐색
 vim.keymap.set("n", "<leader>ex", vim.cmd.Ex)
 
-require('lazy').setup({
-	-- 시작화면
-	require 'plugins.greeter',
+require("lazy").setup("plugins")
 
-	-- 검색
-	require 'plugins.telescope',
+--require('lazy').setup({
+	---- 시작화면
+	--require 'plugins.greeter',
 
-	-- 태마 설정
-	require 'plugins.theme',
+	---- 검색
+	--require 'plugins.telescope',
 
-	-- 하단 상태바
-	require 'plugins.statusline',
+	---- 태마 설정
+	--require 'plugins.theme',
 
-	-- 사이드바
-	require 'plugins.sidebar',
+	---- 하단 상태바
+	--require 'plugins.statusline',
 
-	-- require 'plugins.lsp',
+	---- 사이드바
+	--require 'plugins.sidebar',
 
-	--{
-	--'neovim/nvim-lspconfig',
-	--dependencies = {
-	---- Automatically install LSPs to stdpath for neovim
-	--{ 'williamboman/mason.nvim', config = true },
-	--'williamboman/mason-lspconfig.nvim',
+	---- require 'plugins.lsp',
 
-	---- Useful status updates for LSP
-	---- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-	--{ 'j-hui/fidget.nvim',       opts = {} },
+	----{
+	----'neovim/nvim-lspconfig',
+	----dependencies = {
+	------ Automatically install LSPs to stdpath for neovim
+	----{ 'williamboman/mason.nvim', config = true },
+	----'williamboman/mason-lspconfig.nvim',
 
-	---- Additional lua configuration, makes nvim stuff amazing!
-	--'folke/neodev.nvim',
-	--}
-	--},
-	--{
-	---- highlight, edit, and navigate code
-	--'nvim-treesitter/nvim-treesitter',
-	--dependencies = {
-	--'nvim-treesitter/nvim-treesitter-textobjects',
-	--},
-	--build = ':TSUpdate',
-	--},
+	------ Useful status updates for LSP
+	------ NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
+	----{ 'j-hui/fidget.nvim',       opts = {} },
 
-	-- 들여쓰기 설정
-	require 'plugins.indent',
+	------ Additional lua configuration, makes nvim stuff amazing!
+	----'folke/neodev.nvim',
+	----}
+	----},
+	----{
+	------ highlight, edit, and navigate code
+	----'nvim-treesitter/nvim-treesitter',
+	----dependencies = {
+	----'nvim-treesitter/nvim-treesitter-textobjects',
+	----},
+	----build = ':TSUpdate',
+	----},
+
+	---- 들여쓰기 설정
+	--require 'plugins.indent',
 
 
-	-- 자동완성
-	--{
-	--'hrsh7th/nvim-cmp',
-	--dependencies = {
-	---- Snippet Engine & its associated nvim-cmp source
-	--'L3MON4D3/LuaSnip',
-	--'saadparwaiz1/cmp_luasnip',
+	---- 자동완성
+	----{
+	----'hrsh7th/nvim-cmp',
+	----dependencies = {
+	------ Snippet Engine & its associated nvim-cmp source
+	----'L3MON4D3/LuaSnip',
+	----'saadparwaiz1/cmp_luasnip',
 
-	---- Adds LSP completion capabilities
-	--'hrsh7th/cmp-nvim-lsp',
-	--'hrsh7th/cmp-path',
+	------ Adds LSP completion capabilities
+	----'hrsh7th/cmp-nvim-lsp',
+	----'hrsh7th/cmp-path',
 
-	---- Adds a number of user-friendly snippets
-	--'rafamadriz/friendly-snippets',
-	--},
-	--},
+	------ Adds a number of user-friendly snippets
+	----'rafamadriz/friendly-snippets',
+	----},
+	----},
 
-	require 'plugins.gitPlugin',
+	--require 'plugins.gitPlugin',
 
-	require 'plugins.tabs',
+	--require 'plugins.tabs',
 
-	-- 가능한 키바인딩 보여주기
-	require 'plugins.whichKey',
+	---- 가능한 키바인딩 보여주기
+	--require 'plugins.whichKey',
 
-	require 'plugins.comments',
+	--require 'plugins.comments',
 
-	--{
-	--"nvimtools/none-ls.nvim",
-	--event = "VeryLazy"
-	--}
+	----{
+	----"nvimtools/none-ls.nvim",
+	----event = "VeryLazy"
+	----}
 
-})
+--})
 
 --lsp_zero.setup_servers({'tsserver', 'rust_analyzer'})
 -- 아래는 LSP별로 특수한 설정이 필요할 때 사용할 수 있는 방법
