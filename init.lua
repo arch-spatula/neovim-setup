@@ -110,11 +110,8 @@ require('lazy').setup({
 	--},
 
 	-- 들여쓰기 설정
-	{
-		'lukas-reineke/indent-blankline.nvim',
-		main = 'ibl',
-		opts = {},
-	},
+	require 'plugins.indent',
+
 
 	-- 자동완성
 	--{
@@ -135,59 +132,12 @@ require('lazy').setup({
 
 	require 'plugins.gitPlugin',
 
-	-- 저장에 자동 포맷팅
-	-- require 'plugins.autoformat',
-	-- add this to your lua/plugins.lua, lua/plugins/init.lua,  or the file you keep your other plugins:
-
-	---- 주석처리하는 방법
-	--{
-	--'numToStr/Comment.nvim',
-	--opts = {
-	---- add any options here
-	--padding = true,
-	---- sticky = true,
-	--toggler = {
-	-----Line-comment toggle keymap
-	--line = "gcc",
-	-----Block-comment toggle keymap
-	--block = "gbc",
-	--},
-	--opleader = {
-	-----Line-comment keymap
-	--line = "<leader>_",
-	-----Block-comment keymap
-	--block = "<leader>_",
-	--},
-	--mappings = {
-	-----Operator-pending mapping; `gcc` `gbc` `gc[count]{motion}` `gb[count]{motion}`
-	--basic = true,
-	-----Extra mapping; `gco`, `gcO`, `gcA`
-	--extra = true,
-	--},
-	--},
-	--lazy = false,
-	--},
-
 	require 'plugins.tabs',
 
 	-- 가능한 키바인딩 보여주기
-	{
-		"folke/which-key.nvim",
-		event = "VeryLazy",
-		init = function()
-			vim.o.timeout = true
-			vim.o.timeoutlen = 300
-		end,
-		opts = {
-			-- your configuration comes here
-			-- or leave it empty to use the default settings
-			-- refer to the configuration section below
-		}
-	},
+	require 'plugins.whichKey',
 
-	{
-		"preservim/nerdcommenter",
-	},
+	require 'plugins.comments',
 
 	--{
 	--"nvimtools/none-ls.nvim",
@@ -251,7 +201,7 @@ require('mason-lspconfig').setup({
 		end,
 		lsp_zero.buffer_autoformat()
 	},
-	ensure_installed = { 'clangd', 'tsserver', 'rust_analyzer', 'marksman', 'volar' , 'eslint'},
+	ensure_installed = { 'clangd', 'tsserver', 'rust_analyzer', 'marksman', 'volar', 'eslint' },
 })
 
 --lsp_zero.setup_servers({'tsserver', 'rust_analyzer'})
@@ -401,13 +351,6 @@ lsp_zero.format_on_save({
 --[[vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)]]
 --[[vim.lsp.buf.format()]]
 --[[end, { desc = 'Format current buffer with LSP' })]]
-
--- leader + / 에 주석 처리 -> 아직 완성 못함 지금은 leader + c 로 주석처리함
-local modes = { 'n', 'v' }
-for i in pairs(modes) do
-	vim.keymap.set(modes[i], '<leader>c', ':call nerdcommenter#Comment(0, "toggle")<CR>',
-		{ noremap = true, silent = true })
-end
 
 --local null_ls = require("null-ls")
 
