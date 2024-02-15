@@ -9,6 +9,7 @@ return {
 	{
 		'williamboman/mason-lspconfig.nvim',
 		config = function()
+			-- @todo "stylua" 같은 포맷터 ensure_installed 처리하기
 			require("mason").setup({
 				ensure_installed = { "lua_ls", "rust_analyzer", "clangd", "cssls", "eslint", "tsserver", "html", "volar" },
 			})
@@ -19,12 +20,22 @@ return {
 	{
 		'neovim/nvim-lspconfig',
 		config = function()
+			local capabilities = require('cmp_nvim_lsp').default_capabilities()
+
 			-- @todo lsp attach hook 적용
 			local lspconfig = require('lspconfig')
-			lspconfig.lua_ls.setup({})
-			lspconfig.clangd.setup({})
-			lspconfig.tsserver.setup({})
-			lspconfig.volar.setup({})
+			lspconfig.lua_ls.setup({
+				capabilities = capabilities
+			})
+			lspconfig.clangd.setup({
+				capabilities = capabilities
+			})
+			lspconfig.tsserver.setup({
+				capabilities = capabilities
+			})
+			lspconfig.volar.setup({
+				capabilities = capabilities
+			})
 
 			-- @todo 키맵 추가
 			vim.keymap.set('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
