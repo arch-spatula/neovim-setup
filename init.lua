@@ -27,7 +27,6 @@
 --print("⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⠉⠉⠁⠀⢻⣿⡇⠀⠀⠀⠀⠀⠀⢀⠈⣿⣿⡿⠉⠛⠛⠛⠉⠉")
 --print("⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠋⠁⠀⠀⢀⣀⣠⡴⣸⣿⣇⡄⠀⠀⠀⠀⢀⡿⠄⠙⠛⠀⣀⣠⣤⣤⠄⠀")
 
-
 -- 줄번호 표시하게 만들기
 vim.wo.number = true
 -- 현재 줄기준으로 표시
@@ -70,81 +69,81 @@ vim.keymap.set("n", "<leader>ex", vim.cmd.Ex)
 require("lazy").setup("plugins")
 
 --require('lazy').setup({
-	---- 시작화면
-	--require 'plugins.greeter',
+---- 시작화면
+--require 'plugins.greeter',
 
-	---- 검색
-	--require 'plugins.telescope',
+---- 검색
+--require 'plugins.telescope',
 
-	---- 태마 설정
-	--require 'plugins.theme',
+---- 태마 설정
+--require 'plugins.theme',
 
-	---- 하단 상태바
-	--require 'plugins.statusline',
+---- 하단 상태바
+--require 'plugins.statusline',
 
-	---- 사이드바
-	--require 'plugins.sidebar',
+---- 사이드바
+--require 'plugins.sidebar',
 
-	---- require 'plugins.lsp',
+---- require 'plugins.lsp',
 
-	----{
-	----'neovim/nvim-lspconfig',
-	----dependencies = {
-	------ Automatically install LSPs to stdpath for neovim
-	----{ 'williamboman/mason.nvim', config = true },
-	----'williamboman/mason-lspconfig.nvim',
+----{
+----'neovim/nvim-lspconfig',
+----dependencies = {
+------ Automatically install LSPs to stdpath for neovim
+----{ 'williamboman/mason.nvim', config = true },
+----'williamboman/mason-lspconfig.nvim',
 
-	------ Useful status updates for LSP
-	------ NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-	----{ 'j-hui/fidget.nvim',       opts = {} },
+------ Useful status updates for LSP
+------ NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
+----{ 'j-hui/fidget.nvim',       opts = {} },
 
-	------ Additional lua configuration, makes nvim stuff amazing!
-	----'folke/neodev.nvim',
-	----}
-	----},
-	----{
-	------ highlight, edit, and navigate code
-	----'nvim-treesitter/nvim-treesitter',
-	----dependencies = {
-	----'nvim-treesitter/nvim-treesitter-textobjects',
-	----},
-	----build = ':TSUpdate',
-	----},
+------ Additional lua configuration, makes nvim stuff amazing!
+----'folke/neodev.nvim',
+----}
+----},
+----{
+------ highlight, edit, and navigate code
+----'nvim-treesitter/nvim-treesitter',
+----dependencies = {
+----'nvim-treesitter/nvim-treesitter-textobjects',
+----},
+----build = ':TSUpdate',
+----},
 
-	---- 들여쓰기 설정
-	--require 'plugins.indent',
+---- 들여쓰기 설정
+--require 'plugins.indent',
 
 
-	---- 자동완성
-	----{
-	----'hrsh7th/nvim-cmp',
-	----dependencies = {
-	------ Snippet Engine & its associated nvim-cmp source
-	----'L3MON4D3/LuaSnip',
-	----'saadparwaiz1/cmp_luasnip',
+---- 자동완성
+----{
+----'hrsh7th/nvim-cmp',
+----dependencies = {
+------ Snippet Engine & its associated nvim-cmp source
+----'L3MON4D3/LuaSnip',
+----'saadparwaiz1/cmp_luasnip',
 
-	------ Adds LSP completion capabilities
-	----'hrsh7th/cmp-nvim-lsp',
-	----'hrsh7th/cmp-path',
+------ Adds LSP completion capabilities
+----'hrsh7th/cmp-nvim-lsp',
+----'hrsh7th/cmp-path',
 
-	------ Adds a number of user-friendly snippets
-	----'rafamadriz/friendly-snippets',
-	----},
-	----},
+------ Adds a number of user-friendly snippets
+----'rafamadriz/friendly-snippets',
+----},
+----},
 
-	--require 'plugins.gitPlugin',
+--require 'plugins.gitPlugin',
 
-	--require 'plugins.tabs',
+--require 'plugins.tabs',
 
-	---- 가능한 키바인딩 보여주기
-	--require 'plugins.whichKey',
+---- 가능한 키바인딩 보여주기
+--require 'plugins.whichKey',
 
-	--require 'plugins.comments',
+--require 'plugins.comments',
 
-	----{
-	----"nvimtools/none-ls.nvim",
-	----event = "VeryLazy"
-	----}
+----{
+----"nvimtools/none-ls.nvim",
+----event = "VeryLazy"
+----}
 
 --})
 
