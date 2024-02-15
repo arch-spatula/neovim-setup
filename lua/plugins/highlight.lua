@@ -2,6 +2,9 @@ return {
 	-- :TSInstallInfo 로 설치 정보 확인
 	"nvim-treesitter/nvim-treesitter",
 	build = ":TSUpdate",
+	dependencies = {
+'nvim-treesitter/nvim-treesitter-textobjects'
+	},
     config = function()
       local config = require("nvim-treesitter.configs")
       config.setup({
