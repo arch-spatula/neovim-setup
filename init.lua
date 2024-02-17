@@ -40,13 +40,13 @@ vim.opt["shiftwidth"] = 2
 vim.opt["numberwidth"] = 2
 
 -- 클립보드 공유
-vim.o.clipboard = 'unnamedplus'
+vim.o.clipboard = "unnamedplus"
 
 -- Set <space> as the leader key
 -- See `:help mapleader`
 --  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
 
 -- lazyvim 플러그인 설치
 -- :Lazy 명령어로 플러그인 설치여부를 확인할 수 있음
@@ -113,7 +113,6 @@ require("lazy").setup("plugins")
 ---- 들여쓰기 설정
 --require 'plugins.indent',
 
-
 ---- 자동완성
 ----{
 ----'hrsh7th/nvim-cmp',
@@ -157,7 +156,6 @@ require("lazy").setup("plugins")
 --client.server_capabilities.documentFormattingRangeProvider = false
 --end,
 --})
-
 
 -- syntax 하이라이팅
 --vim.defer_fn(function()
