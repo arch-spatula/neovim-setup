@@ -3,27 +3,28 @@ return {
 	{
 		"williamboman/mason.nvim",
 		config = function()
-			require("mason").setup()
+			require("mason").setup({})
 		end,
 	},
 	{
 		"williamboman/mason-lspconfig.nvim",
-		init = function()
+		config = function()
 			-- @todo "stylua" 같은 포맷터 ensure_installed 처리하기
-			require("mason").setup({
+			require("mason-lspconfig").setup({
 				ensure_installed = {
 					"lua_ls",
 					"rust_analyzer",
 					"clangd",
-					"cssls",
-					"eslint-lsp",
-					"tsserver",
-					"html",
-					"css-lsp",
-					"marksman",
-					"volar",
 					"gopls",
+					"marksman",
+					-- JS & TS
+					"html",
+					"cssls",
+					"eslint",
+					"tsserver",
+					"volar",
 				},
+				--automatic_installation = true
 			})
 		end,
 	},
@@ -42,7 +43,7 @@ return {
 			lspconfig.clangd.setup({
 				capabilities = capabilities,
 			})
-			-- JS & TS 
+			-- JS & TS
 			lspconfig.tsserver.setup({
 				capabilities = capabilities,
 			})
@@ -53,7 +54,7 @@ return {
 				capabilities = capabilities,
 			})
 
-			-- Go 
+			-- Go
 			lspconfig.gopls.setup({
 				capabilities = capabilities,
 			})
