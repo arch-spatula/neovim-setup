@@ -16,6 +16,7 @@ return {
 				null_ls.builtins.formatting.prettierd,
 			},
 		})
-		vim.keymap.set("n", "<leader>gf", vim.lsp.buf.format, {})
+
+		vim.keymap.set("n", "<leader>gf", vim.lsp.buf.format, { desc = "[g]o [f]ormat" })
 	end,
 }
