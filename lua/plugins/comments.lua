@@ -60,12 +60,16 @@ return {
 	{
 		"preservim/nerdcommenter",
 		config = function()
-			-- leader + / 에 주석 처리 -> 아직 완성 못함 지금은 leader + c 로 주석처리함
-			local modes = { 'n', 'v' }
+			--leader + / 에 주석 처리 -> 아직 완성 못함 지금은 leader + c 로 주석처리함
+			local modes = { "n", "v" }
 			for i in pairs(modes) do
-				vim.keymap.set(modes[i], '<leader>c', ':call nerdcommenter#Comment(0, "toggle")<CR>',
-					{ noremap = true, silent = true })
+				vim.keymap.set(
+					modes[i],
+					"<leader>gc",
+					':call nerdcommenter#Comment(0, "toggle")<CR>',
+					{ noremap = true, silent = true }
+				)
 			end
-		end
-	}
+		end,
+	},
 }
