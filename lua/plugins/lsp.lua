@@ -2,15 +2,45 @@
 return {
 	{
 		"williamboman/mason.nvim",
+		cmd = {
+			"Mason",
+			"MasonInstall",
+			"MasonInstallAll",
+			"MasonUpdate",
+			"MasonUninstall",
+			"MasonUninstallAll",
+			"MasonLog",
+		},
 		config = function()
 			require("mason").setup({})
+			-- https://github.com/NvChad/NvChad/blob/e5f8a38ae3d6b3bedf68f29b0e96dad7a4ca2da5/lua/nvchad/plugins/init.lua 
+			-- NvChad 레포에서 제공하는 MasonInstallAll 커맨드를 구현함
+			-- 처음부터 확정 설치를 할수 없음 MasonInstallAll로 코드로 설정을 명시하게 됨
+			local ensure_installed = {
+				"stylua",
+				"spell",
+				"codespell",
+				"prettierd",
+				"gospel",
+				--"gofumpt",
+				--"biome",
+				"pylint",
+				"cspell",
+			}
+
+			vim.api.nvim_create_user_command("MasonInstallAll", function()
+				if ensure_installed and #ensure_installed > 0 then
+					vim.cmd("MasonInstall " .. table.concat(ensure_installed, " "))
+				end
+			end, { desc = "Mason Install All package" })
+
 		end,
 	},
 	{
 		"williamboman/mason-lspconfig.nvim",
 		config = function()
-			-- @todo "stylua" 같은 포맷터 ensure_installed 처리하기
 			require("mason-lspconfig").setup({
+				-- 최초 설치부터 자동 지원함
 				ensure_installed = {
 					"lua_ls",
 					"rust_analyzer",
@@ -50,6 +80,7 @@ return {
 					"--offset-encoding=utf-16",
 				},
 			})
+
 			-- JS & TS
 			lspconfig.tsserver.setup({
 				capabilities = capabilities,
