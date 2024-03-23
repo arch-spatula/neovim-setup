@@ -14,14 +14,19 @@ return {
 					"lua",
 					"vim",
 					"vimdoc",
+
+					-- for system programming
 					"c",
 					"cpp",
 					"rust",
+					"zig",
+
+					-- JS & TS
 					"html",
 					"css",
 					"javascript",
 					"typescript",
-					"zig",
+					"vue",
 				},
 				highlight = { enable = true },
 				indent = { enable = true },
