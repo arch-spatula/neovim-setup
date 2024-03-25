@@ -13,7 +13,7 @@ return {
 		},
 		config = function()
 			require("mason").setup({})
-			-- https://github.com/NvChad/NvChad/blob/e5f8a38ae3d6b3bedf68f29b0e96dad7a4ca2da5/lua/nvchad/plugins/init.lua 
+			-- https://github.com/NvChad/NvChad/blob/e5f8a38ae3d6b3bedf68f29b0e96dad7a4ca2da5/lua/nvchad/plugins/init.lua
 			-- NvChad 레포에서 제공하는 MasonInstallAll 커맨드를 구현함
 			-- 처음부터 확정 설치를 할수 없음 MasonInstallAll로 코드로 설정을 명시하게 됨
 			local ensure_installed = {
@@ -33,7 +33,6 @@ return {
 					vim.cmd("MasonInstall " .. table.concat(ensure_installed, " "))
 				end
 			end, { desc = "Mason Install All package" })
-
 		end,
 	},
 	{
@@ -82,9 +81,47 @@ return {
 			})
 
 			-- JS & TS
-			lspconfig.tsserver.setup({
-				capabilities = capabilities,
-			})
+
+			local secret = os.getenv("VUE_LSP_PATH")
+			-- Version 2 stop working with nvim lsp
+			-- https://github.com/vuejs/language-tools/issues/3925
+			-- https://github.com/williamboman/mason-lspconfig.nvim/issues/371#issuecomment-1988153959
+			-- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#volar
+			-- npm install -g @vue/language-server # vue lsp를 전역으로 설치
+			-- npm list -g # 이 명령으로 설치된 경로를 알아낼 수 있음
+			-- .zshrc, bash, posh rc 파일에 설치한 @vue/language-server의 경로를 VUE_LSP_PATH에 설정할 것.
+			-- VUE_LSP_PATH="명령으로_알아낸_설치_경로/node_modules/@vue/language-server"
+			-- 모든 해결책이 소용없다면 다음 명령 활용
+			-- :MasonInstall vue-language-server@1.8.27
+			if secret == nil then
+				print("VUE LSP PATH not set")
+				lspconfig.tsserver.setup({
+					capabilities = capabilities,
+				})
+			else
+				lspconfig.tsserver.setup({
+					init_options = {
+						plugins = {
+							{
+								name = "@vue/typescript-plugin",
+								location = secret,
+								languages = {
+									"typescript",
+									"javascript",
+									"vue",
+								},
+							},
+						},
+					},
+					filetypes = {
+						"javascript",
+						"typescript",
+						"vue",
+					},
+					capabilities = capabilities,
+				})
+			end
+
 			lspconfig.marksman.setup({
 				capabilities = capabilities,
 			})
