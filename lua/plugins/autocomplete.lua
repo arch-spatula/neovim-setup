@@ -1,4 +1,6 @@
 return {
+	-- NOTE: cmp-path,
+
 	{
 		"hrsh7th/cmp-nvim-lsp"
 	},
