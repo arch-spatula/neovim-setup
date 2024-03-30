@@ -85,7 +85,7 @@ cd $ENV:USERPROFILE\AppData\Local\nvim
 
 ## Mason 목록
 
-<!-- @todo: 설치한 LSP 목록 나열하기 -->
+<!-- TODO: 설치한 LSP 목록 나열하기 -->
 
 ```
 clang-format
