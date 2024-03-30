@@ -1,8 +1,3 @@
---local M = {}
-
---M.comment = {
---plugin = true,
-
 ---- toggle comment in both modes
 --n = {
 --["<leader>/"] = {
@@ -21,40 +16,6 @@
 --},
 --}
 
---return M
-
--- 저장에 자동 포맷팅
--- require 'plugins.autoformat',
--- add this to your lua/plugins.lua, lua/plugins/init.lua,  or the file you keep your other plugins:
-
----- 주석처리하는 방법
---{
---'numToStr/Comment.nvim',
---opts = {
----- add any options here
---padding = true,
----- sticky = true,
---toggler = {
------Line-comment toggle keymap
---line = "gcc",
------Block-comment toggle keymap
---block = "gbc",
---},
---opleader = {
------Line-comment keymap
---line = "<leader>_",
------Block-comment keymap
---block = "<leader>_",
---},
---mappings = {
------Operator-pending mapping; `gcc` `gbc` `gc[count]{motion}` `gb[count]{motion}`
---basic = true,
------Extra mapping; `gco`, `gcO`, `gcA`
---extra = true,
---},
---},
---lazy = false,
---},
 
 return {
 	{
@@ -68,6 +29,8 @@ return {
 			})
 
 			vim.keymap.set("n", "<leader>ft", ":TodoTelescope<CR>", { desc = "[f]ind [t]odos" }) -- todo-comments.nvim으로 사용
+
+			vim.keymap.set("n", "<leader>tt", ":TodoLocList<CR>", { desc = "[t]oggle [t]odos" })
 
 			vim.keymap.set("n", "]t", function()
 				require("todo-comments").jump_next()
@@ -102,5 +65,4 @@ return {
 			end
 		end,
 	},
-
 }
