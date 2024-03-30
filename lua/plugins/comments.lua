@@ -58,6 +58,35 @@
 
 return {
 	{
+		"folke/todo-comments.nvim",
+		dependencies = { "nvim-lua/plenary.nvim" },
+		config = function()
+			require("todo-comments").setup({
+				-- your configuration comes here
+				-- or leave it empty to use the default settings
+				-- refer to the configuration section below
+			})
+
+			vim.keymap.set("n", "<leader>ft", ":TodoTelescope<CR>", { desc = "[f]ind [t]odos" }) -- todo-comments.nvim으로 사용
+
+			vim.keymap.set("n", "]t", function()
+				require("todo-comments").jump_next()
+			end, { desc = "Next todo comment" })
+
+			vim.keymap.set("n", "[t", function()
+				require("todo-comments").jump_prev()
+			end, { desc = "Previous todo comment" })
+		end,
+	},
+	-- TODO: numToStr/Comment.nvim 으로 교체
+	--{
+	--"numToStr/Comment.nvim",
+	--opts = {
+	---- add any options here
+	--},
+	--lazy = false,
+	--},
+	{
 		"preservim/nerdcommenter",
 		config = function()
 			--leader + / 에 주석 처리 -> 아직 완성 못함 지금은 leader + c 로 주석처리함
@@ -72,4 +101,5 @@ return {
 			end
 		end,
 	},
+
 }
