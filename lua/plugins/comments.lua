@@ -89,11 +89,12 @@ return {
 	{
 		"preservim/nerdcommenter",
 		config = function()
-			--leader + / 에 주석 처리 -> 아직 완성 못함 지금은 leader + c 로 주석처리함
+			-- TODO: leader + / 에 주석 처리 -> 아직 완성 못함 지금은 leader + c 로 주석처리함
 			local modes = { "n", "v" }
 			for i in pairs(modes) do
 				vim.keymap.set(
 					modes[i],
+					-- NOTE: Warp pad에서 사용할 때 <C-/>이 단축기 접근으로 기본설정이 되어 있음
 					"<leader>gc",
 					':call nerdcommenter#Comment(0, "toggle")<CR>',
 					{ noremap = true, silent = true }
