@@ -33,6 +33,7 @@ return {
 				},
 			})
 			-- TODO: codeactions 설정하기
+			-- TODO: nvchad mapping과 kickstart mapping 적용하기
 
 			-- pseudo code / specification for writing custom displays, like the one
 			-- for "codeactions"
@@ -51,10 +52,10 @@ return {
 			-- 검색기 활성화
 			local builtin = require("telescope.builtin")
 			vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "[f]ind [f]ile" }) -- 파일이름으로 검색
-			vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "[f]ind [g]rep" })  -- 단어 검색
+			vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "[f]ind [g]rep" }) -- 단어 검색
 			vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "[f]ind [b]uffers" }) -- buffer 탭 검색
 			vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "[f]ind [h]elp" })
-			vim.keymap.set("n", "<C-p>", builtin.git_files, { desc = "[f]ind [g]it file"})
+			vim.keymap.set("n", "<C-p>", builtin.git_files, { desc = "[f]ind [g]it file" })
 
 			-- To get ui-select loaded and working with telescope, you need to call
 			-- load_extension, somewhere after setup function:
