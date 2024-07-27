@@ -83,51 +83,31 @@ return {
 
 			-- JS & TS
 
-			local secret = os.getenv("VUE_LSP_PATH")
-			-- WARN: Version 2 stop working with nvim lsp
-			-- https://github.com/vuejs/language-tools/issues/3925
-			-- https://github.com/williamboman/mason-lspconfig.nvim/issues/371#issuecomment-1988153959
-			-- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#volar
-			-- npm install -g @vue/language-server # vue lsp를 전역으로 설치
-			-- npm list -g # 이 명령으로 설치된 경로를 알아낼 수 있음
-			-- .zshrc, bash, posh rc 파일에 설치한 @vue/language-server의 경로를 VUE_LSP_PATH에 설정할 것.
-			-- VUE_LSP_PATH="명령으로_알아낸_설치_경로/node_modules/@vue/language-server"
-			-- 모든 해결책이 소용없다면 다음 명령 활용
-			-- :MasonInstall vue-language-server@1.8.27
-			-- TODO: 모노레포에서 VUE_LSP_PATH 활용가능하게 설정하기
-			if secret == nil then
-				print("VUE LSP PATH not set")
-				lspconfig.tsserver.setup({
-					capabilities = capabilities,
-				})
-			else
-				lspconfig.tsserver.setup({
-					init_options = {
-						plugins = {
-							{
-								name = "@vue/typescript-plugin",
-								location = secret,
-								languages = {
-									"typescript",
-									"javascript",
-									"vue",
-								},
-							},
+			-- NOTE: 공식 문서 내용
+			-- https://github.com/vuejs/language-tools?tab=readme-ov-file#community-integration
+			-- If you are using mason.nvim, you can get the ts_plugin_path like this
+			local mason_registry = require("mason-registry")
+			local vue_language_server_path = mason_registry.get_package("vue-language-server"):get_install_path()
+				.. "/node_modules/@vue/language-server"
+
+			lspconfig.tsserver.setup({
+				init_options = {
+					plugins = {
+						{
+							name = "@vue/typescript-plugin",
+							location = vue_language_server_path,
+							languages = { "vue" },
 						},
 					},
-					filetypes = {
-						"javascript",
-						"typescript",
-						"vue",
-					},
-					capabilities = capabilities,
-				})
-			end
-
-			lspconfig.marksman.setup({
+				},
+				filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
 				capabilities = capabilities,
 			})
 			lspconfig.volar.setup({
+				capabilities = capabilities,
+			})
+
+			lspconfig.marksman.setup({
 				capabilities = capabilities,
 			})
 
