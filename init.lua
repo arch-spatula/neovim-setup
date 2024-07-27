@@ -35,7 +35,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 -- 스페이스바 + e + x 으로 vim 탐색
-vim.keymap.set("n", "<leader>ex", vim.cmd.Ex)
+vim.keymap.set("n", "<leader>ex", vim.cmd.Ex, { desc = "vim [ex]plore" })
 
 require("lazy").setup("plugins")
 

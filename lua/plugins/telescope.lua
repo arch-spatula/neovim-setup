@@ -87,6 +87,14 @@ return {
 			vim.keymap.set("n", "<leader>fn", function()
 				builtin.find_files({ cwd = vim.fn.stdpath("config") })
 			end, { desc = "[f]ind [n]eovim files" })
+			-- TODO: swap 파일로 바로 목록으로 바로 가기
+			-- vim.keymap.set("n", "<leader>") 아직 단축키 미정
+			-- $HOME/.local/state/nvim/swap 이런 디렉토리를 같는 것 같음
+			-- 통으로 삭제하는 기능이 더 적합할지도 모름.
+			-- 이 경우 터미널 커맨드라인으로 처리할 수 있음.
+			-- 터미널 커맨드라인을 실행 
+			-- 하고 싶은 행동이 백업의 도움을 받고 난 뒤에 편집하고 백업을 삭제하는 것임.
+			-- nvim이 실제로 많이 불안정한 것은 아님.
 
 			-- To get ui-select loaded and working with telescope, you need to call
 			-- load_extension, somewhere after setup function:
