@@ -22,7 +22,6 @@ return {
 				"spell",
 				"codespell",
 				"prettierd",
-				"gospel",
 				--"gofumpt",
 				--"biome",
 				"pylint",
